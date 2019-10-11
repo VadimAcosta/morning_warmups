@@ -1,0 +1,36 @@
+Q1) 
+
+FROM payment
+WHERE payment_date > '2007-05-01'
+SELECT payment_date
+Vadim Acosta 10112019
+
+ORDER BY payment_date DESC;
+
+Q2)
+
+FROM payment
+WHERE amount < 3
+SELECT payment_id, payment_date
+
+Q3)
+
+FROM customer 
+WHERE store_id = 1 AND active = 0
+SELECT customer_id, email, active
+ORDER BY last_update;
+
+Q4)
+
+JOIN film_category AS fc  ON f.film_id=fc.film_id
+JOIN category AS c ON fc.category_id=c.category_id
+FROM film as f
+GROUP BY c.category_id
+SELECT c.name, COUNT(f.film_id) as total
+ORDER BY total DESC
+
+Q7)
+
+FROM payment
+WHERE amount > (SELECT AVG(amount) FROM payment)
+SELECT *
