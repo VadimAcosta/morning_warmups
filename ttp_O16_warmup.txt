@@ -1,0 +1,42 @@
+1) 
+
+SELECT * 
+FROM customer 
+WHERE first_name LIKE '%dan%';
+
+2)
+
+SELECT * 
+FROM customer 
+WHERE last_name LIKE '%dan%';
+
+3)
+
+SELECT * 
+FROM customer 
+WHERE first_name LIKE '%dan%'
+UNION
+SELECT * 
+FROM customer 
+WHERE last_name LIKE '%dan%';
+
+4)
+
+SELECT * 
+FROM film
+WHERE title LIKE '%Fred%';
+
+5)
+
+SELECT * 
+FROM film
+WHERE description LIKE '%Squirrel%'
+;
+
+6) 
+
+SELECT * 
+FROM film
+WHERE title LIKE '%Fred%'
+AND description LIKE '%Squirrel%'
+;
