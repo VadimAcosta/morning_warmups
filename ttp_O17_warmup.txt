@@ -7,19 +7,19 @@ GROUP BY 1
 ORDER BY 2 DESC
 LIMIT 1)
 
-SELECT film_actor.actor_id, actor.first_name, actor.last_name
+SELECT DISTINCT film_actor.actor_id, actor.first_name, actor.last_name
 FROM film_actor 
-LEFT JOIN popular_actor 
-ON film_actor.actor_id = popular_actor.actor_id
-JOIN actor
-ON film_actor.actor_id = actor.actor_id 
+	LEFT JOIN popular_actor 
+	ON film_actor.actor_id = popular_actor.actor_id
+	JOIN actor
+	ON film_actor.actor_id = actor.actor_id 
 WHERE film_actor.film_id IN
 
 (
-	SELECT film_actor.film_id
+SELECT film_actor.film_id
 FROM film_actor
-JOIN popular_actor
-ON popular_actor.actor_id = film_actor.actor_id
+	JOIN popular_actor
+	ON popular_actor.actor_id = film_actor.actor_id
 WHERE film_actor.actor_id = popular_actor.actor_id
 )
 
