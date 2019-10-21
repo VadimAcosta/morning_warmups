@@ -4,7 +4,7 @@ WITH holiday_movies AS
 
 CASE 
 	WHEN title ILIKE '%christmas%' THEN 'Christmas'
-	WHEN title ILIKE '%haloween%' THEN 'Haloween'
+	WHEN title ILIKE '%halloween%' THEN 'Halloween'
 	WHEN title ILIKE '%thanksgiving%' THEN 'Thanksgiving'
 	WHEN title ILIKE '%independence day%' THEN 'Independence Day'
 	WHEN title ILIKE '%columbus day%' THEN 'Columbus Day'
