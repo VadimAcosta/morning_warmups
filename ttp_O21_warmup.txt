@@ -1,0 +1,26 @@
+WITH holiday_movies AS 
+
+(SELECT title, description, rental_rate,
+
+CASE 
+	WHEN title ILIKE '%christmas%' THEN 'Christmas'
+	WHEN title ILIKE '%haloween%' THEN 'Haloween'
+	WHEN title ILIKE '%thanksgiving%' THEN 'Thanksgiving'
+	WHEN title ILIKE '%independence day%' THEN 'Independence Day'
+	WHEN title ILIKE '%columbus day%' THEN 'Columbus Day'
+	WHEN title ILIKE '%veterans day%' THEN 'Veterans Day'
+ELSE NULL
+END AS holiday
+
+FROM film 
+ORDER BY holiday)
+
+SELECT title, description, holiday,
+
+CASE
+	WHEN holiday IS NOT NULL THEN rental_rate * 0.5 
+END AS holiday_discount
+
+FROM holiday_movies
+
+WHERE holiday IS NOT NULL
