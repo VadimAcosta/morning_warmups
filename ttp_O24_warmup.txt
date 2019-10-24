@@ -5,6 +5,11 @@
 -- 2) Get the average purchase per employee, as well as the standard
 -- deviation.
 
+SELECT stddev_pop(amount) AS standard_deviation
+FROM payment;
+
+-- stddev = 2.37
+
 SELECT staff_id, avg(amount), stddev_pop(amount) AS standard_deviation
 FROM payment
 GROUP BY staff_id;
