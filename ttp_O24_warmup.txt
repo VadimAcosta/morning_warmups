@@ -18,8 +18,15 @@ GROUP BY staff_id;
 -- 1       , 4.15, 2.37
 -- 2       , 4.25, 2.37
 
-
 -- Based on these numbers, do you think there's any meaningful
 -- difference between the natural of transactions they handle?
 -- ANSWER - considering the number of transactions the performance of 
 -- the two staff members could be considered identical 
+
+SELECT customer_id, avg(amount), stddev_pop(amount) AS standard_deviation
+FROM payment
+GROUP BY customer_id
+ORDER BY standard_deviation;
+
+--330 most predictable
+--542 least predictable
