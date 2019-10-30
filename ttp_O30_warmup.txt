@@ -1,0 +1,32 @@
+2) 
+
+SELECT o.orderid, SUM (p.unitprice * od.quantity) as price
+FROM orders as o
+JOIN orderdetails as od ON o.orderid = od.orderid
+JOIN products as p ON p.productid = od.productid
+GROUP BY o.orderid
+ORDER BY orderid;
+
+3)
+
+WITH moneyperorder AS
+
+(
+SELECT o.orderid, SUM (p.unitprice * od.quantity) as price
+FROM orders as o
+JOIN orderdetails as od ON o.orderid = od.orderid
+JOIN products as p ON p.productid = od.productid
+GROUP BY o.orderid
+ORDER BY orderid
+)
+
+SELECT 
+COUNT(orderid) as number_of_orders, 
+AVG(price) as mean_price, 
+stddev_samp(price) as standard_deviation
+FROM moneyperorder;
+
+3)
+
+It appears that the bosss is correct in his estimate
+
