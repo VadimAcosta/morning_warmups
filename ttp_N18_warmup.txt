@@ -1,0 +1,30 @@
+WITH fullprice AS (
+
+SELECT customers.customerid, 
+SUM ((unitprice * quantity) - (unitprice * quantity * discount)) AS price
+FROM customers 
+JOIN orders
+ON customers.customerid = orders.customerid
+JOIN orderdetails
+ON orders.orderid = orderdetails.orderid
+GROUP BY customers.customerid
+ORDER BY price DESC
+LIMIT 10
+	
+)
+
+SELECT customers.customerid, customers.country, SUM(fullprice.price)
+OVER (PARTITION BY customers.country  ORDER BY 3 DESC)
+FROM customers 
+JOIN orders
+	ON customers.customerid = orders.customerid
+		JOIN orderdetails
+		ON orders.orderid = orderdetails.orderid
+			JOIN fullprice
+			ON fullprice.customerid = customers.customerid
+GROUP BY customers.customerid, fullprice.price
+LIMIT 10
+
+;
+
+
