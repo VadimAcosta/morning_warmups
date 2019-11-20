@@ -1,0 +1,32 @@
+-- For each country calculate the total spending for each customer, and 
+-- include a column (called 'difference') showing how much more each customer 
+-- spent compared to the next highest spender in that country. 
+-- For the 'difference' column, fill any nulls with zero.
+-- ROUND your all of your results to the next penny.
+
+-- hints: 
+-- keywords to google - lead, lag, coalesce
+-- If rounding isn't working: 
+-- https://stackoverflow.com/questions/13113096/how-to-round-an-average-to-2-decimal-places-in-postgresql/20934099
+
+WITH lvctable AS
+
+(
+select customers.customerid, customers.country, SUM ((unitprice * quantity) - (unitprice * quantity * discount)) AS lvc 
+FROM orderdetails 
+JOIN orders
+ON orderdetails.orderid = orders.orderid
+JOIN customers
+ON orders.customerid = customers.customerid
+GROUP BY customers.customerid
+ORDER BY lvc DESC
+)
+
+SELECT lvctable.customerid, lvctable.country, lvctable.lvc
+FROM lvctable 
+OVER (PARTITION BY lvctable.country ORDER BY lvctable.lvc DESC)
+;
+
+
+
+
