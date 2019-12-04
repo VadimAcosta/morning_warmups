@@ -1,0 +1,21 @@
+WITH january_comments AS
+(SELECT created_at :: TIMESTAMP :: date, * AS comment_date
+FROM user_comments
+WHERE 1 BETWEEN 2019-01-01 AND 2019-01-31),
+
+count_per_user AS
+(SELECT user.id as user, 
+count (created_at) as number_of_views
+FROM users 
+JOIN user_comments
+ON users.id = user_comments.user_id
+RIGHT JOIN january_comments
+ON user_comments.user_id = january_comments.user_id
+GROUP BY 1
+ORDER BY 2)
+
+SELECT DISTINCT (number_of_views) AS views_per_user, 
+count(number_of_views) AS frequency
+FROM count_per_user
+GROUP BY 1
+ORDER BY 1,2;
