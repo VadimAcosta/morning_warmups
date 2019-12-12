@@ -1,0 +1,19 @@
+WITH orderslist AS
+(
+SELECT customers.customerid, orders.orderdate, 
+LAG (orders.orderdate, 1) OVER (PARTITION BY customers.customerid) AS lagdate
+	FROM customers
+		JOIN orders
+		ON customers.customerid = orders.customerid
+ORDER BY customers.customerid
+)
+
+, rangetable AS 
+
+(SELECT customerid, (lagdate - orderdate) AS time
+FROM orderslist
+LIMIT 10)
+
+SELECT customerid, max(time), min(time), avg(time)
+FROM rangetable
+GROUP BY customerid;
